@@ -79,5 +79,6 @@ $topi1->setNama('Blangkon');
 $topi1->setWarna('Coklat');
 $topi1->setModel('Jogjakarta');
 $topi1->setUkuran('L');
-echo "Ini adalah " . $topi1->getNama() . ", dengan model " . $topi1->getModel();
+echo "Ini adalah " . $topi1->getNama() . ", dengan model " . $topi1->getModel() . 
+" berwana " . $topi1->getWarna() . " dan ukurannya " . $topi1->getUkuran();
 ?>
