@@ -1,5 +1,6 @@
 <?php
 require 'koneksi.php';
+session_start();
 $pdo = new koneksi;
 $kon = $pdo->__construct();
 
@@ -31,12 +32,16 @@ class login{
     public function checkInside($result){
         if ($result != 0) {
             if ($result[0]->user_email == $this->email && $result[0]->user_password == $this->pass) {
-              header('Location:home.php');
+                $_SESSION['id'] = $result[0]->id;
+                $_SESSION['email'] = $result[0]->user_email;
+                $_SESSION['name'] = $result[0]->user_fullname;
+                $_SESSION['level'] = $result[0]->level;
+                header('Location:home.php');
             } else {
-              header('Location:login.php');
+                header('Location:login.php');
             }
           } else {
-            header('Location:login.php');
+                header('Location:login.php');
           }
     }
 }
