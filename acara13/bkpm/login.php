@@ -2,9 +2,6 @@
 require('koneksi.php');
 session_start();
 
-//$emailCheck = mysqli_real_escape_string($koneksi,$email);
-//$passCheck = mysqli_real_escape_string($koneksi,$pass);
-
 if (isset($_POST['submit'])) {
     $email = $_POST['txt_email'];
     $pass = $_POST['txt_pass'];
@@ -23,6 +20,10 @@ if (isset($_POST['submit'])) {
         }
         if ($num != 0) {
             if ($userVal == $email && $passVal == $pass) {
+                $_SESSION['id'] = $id;
+                $_SESSION['email'] = $userVal;
+                $_SESSION['name'] = $userName;
+                $_SESSION['level'] = $level;
                 header('Location: home.php');
             } else {
                 $error = 'user atau password salah!!';
