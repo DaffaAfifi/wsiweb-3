@@ -17,6 +17,10 @@ class StudentSeeder extends Seeder
      */
     public function run()
     {
-        //
+        // schema::disableForeignKeyConstraints();
+        // ClassRoom::truncate();
+        // schema::enableForeignKeyConstraints();
+        
+        Student::factory()->count(20)->create();
     }
 }

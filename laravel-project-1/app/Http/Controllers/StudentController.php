@@ -8,6 +8,7 @@ use App\Models\Student;
 class StudentController extends Controller
 {
     public function index(){
-        return view('student');
+        $student = Student::with(['class', 'extracurriculars'])->get();
+        return view('student', ['StudentList' => $student]);
     }
 }

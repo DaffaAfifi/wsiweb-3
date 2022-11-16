@@ -27,8 +27,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="/class">Class</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="/ekskul">Extracurricular</a>
                 </li>
                 </ul>
             </div>
