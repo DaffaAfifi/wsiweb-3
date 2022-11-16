@@ -14,5 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home', [
+        'name' => 'Daffa Afifi',
+        'role' => 'admin',
+        'cewe' => ['Elok Nurlaili', 'Herdiani Lusianasari', 'Balqis Iftitania Pasha']
+    ]);
+});
+
+Route::get('/about', function () {
+    return view('about');
 });
