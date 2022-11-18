@@ -13,6 +13,7 @@
                 <th>NIM</th>
                 <th>Class</th>
                 <th>Exstracurricular</th>
+                <th>Homeroom Teacher</th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +29,7 @@
                         {{$data['name']}} <br>
                     @endforeach
                 </td>
+                <td>{{$item->class->teachers['name']}}</td>
             </tr>
             @endforeach
         </tbody>

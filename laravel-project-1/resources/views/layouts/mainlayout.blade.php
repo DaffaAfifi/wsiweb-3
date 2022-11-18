@@ -30,6 +30,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="/ekskul">Extracurricular</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="/teacher">Teachers</a>
+                </li>
                 </ul>
             </div>
         </div>

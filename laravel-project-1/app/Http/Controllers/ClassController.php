@@ -8,7 +8,7 @@ use App\Models\ClassRoom;
 class ClassController extends Controller
 {
     public function index(){
-        $class = ClassRoom::with('students')->get();
+        $class = ClassRoom::with('students','teachers')->get();
         return view('classroom', ['classList' => $class]);
     }
 }

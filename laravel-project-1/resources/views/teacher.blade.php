@@ -1,29 +1,21 @@
 @extends('layouts.mainlayout')
 
-@section('title', 'Class')
+@section('title', 'Teachers')
 
 @section('content')
-    <h1>Class List</h1>
+    <h1>Teacher List</h1>
     <table class="table">
         <thead>
             <tr>
                 <th>No.</th>
                 <th>Name</th>
-                <th>Students</th>
-                <th>Homeroom Teacher</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($classList as $item)
+            @foreach ($teacherList as $item)
             <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>{{$item->name}}</td>
-                <td>
-                    @foreach($item->students as $student)
-                        {{$student['name']}} <br>
-                    @endforeach
-                </td>
-                <td>{{$item->teachers['name']}}</td>
             </tr>
             @endforeach
         </tbody>
