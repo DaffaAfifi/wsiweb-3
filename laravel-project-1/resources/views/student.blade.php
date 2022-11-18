@@ -11,25 +11,17 @@
                 <th>Name</th>
                 <th>Gender</th>
                 <th>NIM</th>
-                <th>Class</th>
-                <th>Exstracurricular</th>
-                <th>Homeroom Teacher</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($StudentList as $item)
+            @foreach ($studentList as $item)
             <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>{{$item->name}}</td>
                 <td>{{$item->gender}}</td>
                 <td>{{$item->nim}}</td>
-                <td>{{$item->class['name']}}</td>
-                <td>
-                    @foreach ($item->extracurriculars as $data)
-                        {{$data['name']}} <br>
-                    @endforeach
-                </td>
-                <td>{{$item->class->teachers['name']}}</td>
+                <td><a href="student/{{$item->id}}">detail</a></td>
             </tr>
             @endforeach
         </tbody>

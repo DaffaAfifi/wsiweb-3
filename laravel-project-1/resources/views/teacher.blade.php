@@ -9,6 +9,7 @@
             <tr>
                 <th>No.</th>
                 <th>Name</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +17,7 @@
             <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>{{$item->name}}</td>
+                <td><a href="teacherd/{{$item->id}}">detail</a></td>
             </tr>
             @endforeach
         </tbody>

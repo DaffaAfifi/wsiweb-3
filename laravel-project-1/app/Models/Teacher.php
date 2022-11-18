@@ -10,5 +10,10 @@ class Teacher extends Model
     use HasFactory;
 
     protected $table = 'teachers';
+
+    public function class()
+    {
+        return $this->hasOne(ClassRoom::class);
+    }
     
 }
