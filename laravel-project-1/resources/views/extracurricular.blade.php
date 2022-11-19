@@ -4,6 +4,9 @@
 
 @section('content')
     <h1>Extracurricular List</h1>
+    <div class="my-3 ms-1">
+        <a href="" class="btn btn-dark">New Extracurricular</a>
+    </div>
     <table class="table">
         <thead>
             <tr>

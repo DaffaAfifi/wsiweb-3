@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\ClassRoom;
 
 class StudentController extends Controller
 {
@@ -17,5 +18,42 @@ class StudentController extends Controller
     public function show($id){
         $student = Student::with(['class.teachers', 'extracurriculars'])->findOrFail($id);
         return view('student-detail', ['student' => $student]);
+    }
+
+    public function create(){
+        $class = ClassRoom::select('id', 'name')->get();
+        return view('student-add', ['class' => $class]);
+    }
+
+    public function store(Request $request){
+        $studentm = new Student;
+
+        // $studentm->name = $request->name;
+        // $studentm->gender = $request->gender;
+        // $studentm->nim = $request->nim;
+        // $studentm->class_id = $request->class_id;
+        // $studentm->save();
+
+        //mass asignment
+        $studentm->create($request->all());
+        return redirect('/students');
+    }
+
+    public function edit(Request $request, $id){
+        $student = Student::with('class')->findOrFail($id);
+        $class = ClassRoom::where('id', '!=', $student->class_id)->get(['id', 'name']);
+        return view('students-edit', ['student' => $student, 'class' => $class]);
+    }
+
+    public function update(Request $request, $id){
+        $student = Student::findOrFail($id);
+        // $student->name = $request->name;
+        // $student->gender = $request->gender;
+        // $student->nim = $request->nim;
+        // $student->class_id = $request->class_id;
+        // $student->save();
+
+        $student->update($request->all());
+        return redirect('/students');
     }
 }

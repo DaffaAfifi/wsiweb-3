@@ -4,6 +4,9 @@
 
 @section('content')
     <h1>Student List</h1>
+    <div class="my-3 ms-1">
+        <a href="students-add" class="btn btn-dark">New Student</a>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -21,7 +24,10 @@
                 <td>{{$item->name}}</td>
                 <td>{{$item->gender}}</td>
                 <td>{{$item->nim}}</td>
-                <td><a href="student/{{$item->id}}">detail</a></td>
+                <td>
+                    <a href="student/{{$item->id}}">detail</a>
+                    <a href="students-edit/{{$item->id}}">edit</a>
+                </td>
             </tr>
             @endforeach
         </tbody>
