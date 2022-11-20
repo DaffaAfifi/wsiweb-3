@@ -11,10 +11,19 @@ use App\Http\Requests\StudentCreateRequest;
 
 class StudentController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         // join nested 3 tabel
         // $student = Student::with(['class.teachers', 'extracurriculars'])->get();
-        $student = Student::get();
+        $keyword = $request->keyword;
+
+        $student = Student::with('class')
+                    ->where('name', 'LIKE', '%'.$keyword.'%')
+                    ->orWhere('gender', $keyword)
+                    ->orWhere('nim', 'LIKE', '%'.$keyword.'%')
+                    ->orWhereHas('class', function($query) use($keyword){
+                        $query->where('name', 'LIKE', '%'.$keyword.'%');
+                    })
+                    ->paginate(15);
         return view('student', ['studentList' => $student]);
     }
 

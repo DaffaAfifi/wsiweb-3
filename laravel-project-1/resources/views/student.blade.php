@@ -4,9 +4,17 @@
 
 @section('content')
     <h1>Student List</h1>
-    <div class="my-3 ms-1 d-flex justify-content-between">
+    <div class="my-3 ms-1 me-2 d-flex justify-content-between">
         <a href="students-add" class="btn btn-dark">New Student</a>
         <a href="students-deleted" class="btn btn-info">Deleted Data</a>
+    </div>
+    <div class="my-3 ms-1 me-2">
+        <form action="" method="get">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="keyword" placeholder="Type here...">
+                <button class="input-group-text btn btn-dark">Search</button>
+            </div>
+        </form>
     </div>
 
     @if(Session::has('status'))
@@ -22,16 +30,18 @@
                 <th>Name</th>
                 <th>Gender</th>
                 <th>NIM</th>
+                <th>Class</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($studentList as $item)
             <tr>
-                <td>{{$loop->iteration}}</td>
+                <td>{{$loop->iteration + $studentList->firstItem() - 1}}</td>
                 <td>{{$item->name}}</td>
                 <td>{{$item->gender}}</td>
                 <td>{{$item->nim}}</td>
+                <td>{{$item->class['name']}}</td>
                 <td>
                     <a href="student/{{$item->id}}">detail</a>
                     <a href="students-edit/{{$item->id}}">edit</a>
@@ -41,4 +51,8 @@
             @endforeach
         </tbody>
     </table>
+
+    <div class="my-4 ms-2 me-2">
+        {{$studentList->withQueryString()->links()}}
+    </div>
 @endsection
