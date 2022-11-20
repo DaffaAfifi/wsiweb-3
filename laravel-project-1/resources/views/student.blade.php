@@ -34,6 +34,7 @@
                 <td>
                     <a href="student/{{$item->id}}">detail</a>
                     <a href="students-edit/{{$item->id}}">edit</a>
+                    <a href="students-delete/{{$item->id}}">delete</a>
                 </td>
             </tr>
             @endforeach

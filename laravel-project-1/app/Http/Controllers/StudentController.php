@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\ClassRoom;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB; 
 use App\Http\Requests\StudentCreateRequest;
 
 class StudentController extends Controller
@@ -70,6 +71,27 @@ class StudentController extends Controller
         // $student->save();
 
         $student->update($request->all());
+        return redirect('/students');
+    }
+
+    public function delete($id){
+        $student = Student::findOrFail($id);
+        return view('student-delete', ['student' => $student]);
+    }
+
+    public function destroy($id){
+        // querybuilder
+        // $delete = DB::table('students')->where('id', $id)->delete(); 
+
+        // eloquent
+        $delete = Student::findOrFail($id);
+        $delete->delete();
+
+        if($delete){
+            Session::flash('status','success');
+            Session::flash('message', 'delete student succes.');
+        }
+
         return redirect('/students');
     }
 }
