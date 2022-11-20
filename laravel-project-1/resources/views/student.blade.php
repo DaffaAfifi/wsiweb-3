@@ -7,6 +7,13 @@
     <div class="my-3 ms-1">
         <a href="students-add" class="btn btn-dark">New Student</a>
     </div>
+
+    @if(Session::has('status'))
+        <div class="alert alert-success ms-1 my-3" role="alert">
+            {{Session::get('message')}}
+        </div>
+    @endif
+
     <table class="table">
         <thead>
             <tr>
