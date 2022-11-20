@@ -4,8 +4,9 @@
 
 @section('content')
     <h1>Student List</h1>
-    <div class="my-3 ms-1">
+    <div class="my-3 ms-1 d-flex justify-content-between">
         <a href="students-add" class="btn btn-dark">New Student</a>
+        <a href="students-deleted" class="btn btn-info">Deleted Data</a>
     </div>
 
     @if(Session::has('status'))
