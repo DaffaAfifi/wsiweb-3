@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\ClassRoom;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\StudentCreateRequest;
 
 class StudentController extends Controller
 {
@@ -26,7 +27,17 @@ class StudentController extends Controller
         return view('student-add', ['class' => $class]);
     }
 
-    public function store(Request $request){
+    public function store(StudentCreateRequest $request){
+        // internal validate
+        // $validated = $request->validate([
+        //     'nim' => 'unique:students|max:10|required',
+        //     'name' => 'max:50|required',
+        //     'gender' => 'required',
+        //     'class_id' => 'required'
+        // ]);
+
+        // eksternal validate on line 29 
+
         $studentm = new Student;
 
         // $studentm->name = $request->name;
