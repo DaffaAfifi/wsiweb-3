@@ -4,6 +4,9 @@
 
 @section('content')
     <h2>Detail Siswa {{$student->name}}</h2>
+    <div class="my-4">
+        <img src="{{asset('storage/image/'.$student->image)}}" alt="" width="200px">
+    </div>
     <table class="table table-bordered">
         <tr>
             <th>NIM</th>

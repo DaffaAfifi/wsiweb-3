@@ -57,6 +57,14 @@ class StudentController extends Controller
         // $studentm->save();
 
         //mass asignment
+        $newName = '';
+        if($request->file('image')){
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $newName = $request->name.'-'.now()->timestamp.'.'.$extension;
+            $request->file('image')->storeAs('images', $newName);
+        }
+
+        $request['image'] = $newName;
         $studentm->create($request->all());
         if($studentm){
             Session::flash('status','success');
