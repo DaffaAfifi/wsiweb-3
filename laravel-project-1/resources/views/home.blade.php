@@ -4,9 +4,9 @@
 
 @section('content')
 <h1>This is home of Laravel</h1>
-<h2>Welcome to Laravel, {{$role}} {{$name}}</h2>
+<h4>Selamat datang {{Auth::user()->name}}, anda adalah {{Auth::user()->role->name}}</h4>
 
-@if ($role == 'admin')
+{{-- @if ($role == 'admin')
     <a href="#">Ke halaman admin</a>
 @else
     <a href="#">Ke halaman staff</a>
@@ -23,7 +23,7 @@
         @break
     @default
         <a href="#">Keluar</a>
-@endswitch
+@endswitch --}}
 
 <br>
 

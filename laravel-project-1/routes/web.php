@@ -5,6 +5,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ExtracurricularController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,28 +20,30 @@ use App\Http\Controllers\TeacherController;
 
 Route::get('/', function () {
     return view('home', [
-        'name' => 'Daffa Afifi',
-        'role' => 'admin',
         'cewe' => ['Elok Nurlaili', 'Herdiani Lusianasari', 'Balqis Iftitania Pasha']
     ]);
 });
 
-Route::get('/students', [StudentController::class, 'index']); 
-Route::get('/student/{id}', [StudentController::class, 'show']); 
-Route::get('/students-add', [StudentController::class, 'create']); 
-Route::post('/student', [StudentController::class, 'store']); 
-Route::get('/students-edit/{id}', [StudentController::class, 'edit']); 
-Route::put('/student/{id}', [StudentController::class, 'update']);
-Route::get('/students-delete/{id}', [StudentController::class, 'delete']); 
-Route::delete('/students-destroy/{id}', [StudentController::class, 'destroy']); 
-Route::get('/students-deleted', [StudentController::class, 'deleted']); 
-Route::get('/student/{id}/restore', [StudentController::class, 'restore']); 
+Route::get('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::post('/login', [AuthController::class, 'authenticating'])->middleware('guest');
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
-Route::get('/class', [ClassController::class, 'index']); 
-Route::get('/classd/{id}', [ClassController::class, 'show']); 
+Route::get('/students', [StudentController::class, 'index'])->middleware('auth'); 
+Route::get('/student/{id}', [StudentController::class, 'show'])->middleware('auth'); 
+Route::get('/students-add', [StudentController::class, 'create'])->middleware('auth'); 
+Route::post('/student', [StudentController::class, 'store'])->middleware('auth');
+Route::get('/students-edit/{id}', [StudentController::class, 'edit'])->middleware('auth'); 
+Route::put('/student/{id}', [StudentController::class, 'update'])->middleware('auth');
+Route::get('/students-delete/{id}', [StudentController::class, 'delete'])->middleware('auth');
+Route::delete('/students-destroy/{id}', [StudentController::class, 'destroy'])->middleware('auth'); 
+Route::get('/students-deleted', [StudentController::class, 'deleted'])->middleware('auth');
+Route::get('/student/{id}/restore', [StudentController::class, 'restore'])->middleware('auth');
 
-Route::get('/ekskul', [ExtracurricularController::class, 'index']); 
-Route::get('/ekskuld/{id}', [ExtracurricularController::class, 'show']); 
+Route::get('/class', [ClassController::class, 'index'])->middleware('auth');
+Route::get('/classd/{id}', [ClassController::class, 'show'])->middleware('auth');
 
-Route::get('/teacher', [TeacherController::class, 'index']); 
-Route::get('/teacherd/{id}', [TeacherController::class, 'show']); 
+Route::get('/ekskul', [ExtracurricularController::class, 'index'])->middleware('auth');
+Route::get('/ekskuld/{id}', [ExtracurricularController::class, 'show'])->middleware('auth');
+
+Route::get('/teacher', [TeacherController::class, 'index'])->middleware('auth'); 
+Route::get('/teacherd/{id}', [TeacherController::class, 'show'])->middleware('auth');
