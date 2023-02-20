@@ -2,42 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Student;
-use App\Models\ClassRoom;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\DB; 
 use App\Http\Requests\StudentCreateRequest;
+use App\Models\ClassRoom;
+use App\Models\Student;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class StudentController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         // join nested 3 tabel
         // $student = Student::with(['class.teachers', 'extracurriculars'])->get();
         $keyword = $request->keyword;
 
         $student = Student::with('class')
-                    ->where('name', 'LIKE', '%'.$keyword.'%')
-                    ->orWhere('gender', $keyword)
-                    ->orWhere('nim', 'LIKE', '%'.$keyword.'%')
-                    ->orWhereHas('class', function($query) use($keyword){
-                        $query->where('name', 'LIKE', '%'.$keyword.'%');
-                    })
-                    ->paginate(15);
+            ->where('name', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('gender', $keyword)
+            ->orWhere('nim', 'LIKE', '%' . $keyword . '%')
+            ->orWhereHas('class', function ($query) use ($keyword) {
+                $query->where('name', 'LIKE', '%' . $keyword . '%');
+            })
+            ->paginate(15);
         return view('student', ['studentList' => $student]);
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $student = Student::with(['class.teachers', 'extracurriculars'])->findOrFail($id);
         return view('student-detail', ['student' => $student]);
     }
 
-    public function create(){
+    public function create()
+    {
         $class = ClassRoom::select('id', 'name')->get();
         return view('student-add', ['class' => $class]);
     }
 
-    public function store(StudentCreateRequest $request){
+    public function store(StudentCreateRequest $request)
+    {
         // internal validate
         // $validated = $request->validate([
         //     'nim' => 'unique:students|max:10|required',
@@ -46,7 +49,7 @@ class StudentController extends Controller
         //     'class_id' => 'required'
         // ]);
 
-        // eksternal validate on line 29 
+        // eksternal validate on line 29
 
         $studentm = new Student;
 
@@ -58,28 +61,30 @@ class StudentController extends Controller
 
         //mass asignment
         $newName = '';
-        if($request->file('image')){
+        if ($request->file('image')) {
             $extension = $request->file('image')->getClientOriginalExtension();
-            $newName = $request->name.'-'.now()->timestamp.'.'.$extension;
+            $newName = $request->name . '-' . now()->timestamp . '.' . $extension;
             $request->file('image')->storeAs('images', $newName);
         }
 
         $request['image'] = $newName;
         $studentm->create($request->all());
-        if($studentm){
-            Session::flash('status','success');
+        if ($studentm) {
+            Session::flash('status', 'success');
             Session::flash('message', 'add new student success!');
         }
         return redirect('/students');
     }
 
-    public function edit(Request $request, $id){
+    public function edit(Request $request, $id)
+    {
         $student = Student::with('class')->findOrFail($id);
         $class = ClassRoom::where('id', '!=', $student->class_id)->get(['id', 'name']);
         return view('students-edit', ['student' => $student, 'class' => $class]);
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $student = Student::findOrFail($id);
         // $student->name = $request->name;
         // $student->gender = $request->gender;
@@ -91,37 +96,41 @@ class StudentController extends Controller
         return redirect('/students');
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $student = Student::findOrFail($id);
         return view('student-delete', ['student' => $student]);
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         // querybuilder
-        // $delete = DB::table('students')->where('id', $id)->delete(); 
+        // $delete = DB::table('students')->where('id', $id)->delete();
 
         // eloquent
         $delete = Student::findOrFail($id);
         $delete->delete();
 
-        if($delete){
-            Session::flash('status','success');
+        if ($delete) {
+            Session::flash('status', 'success');
             Session::flash('message', 'delete student succes.');
         }
 
         return redirect('/students');
     }
 
-    public function deleted(){
+    public function deleted()
+    {
         $student = Student::onlyTrashed()->get();
         return view('student-deleted', ['student' => $student]);
     }
 
-    public function restore($id){
+    public function restore($id)
+    {
         $student = Student::withTrashed()->where('id', $id)->restore();
 
-        if($student){
-            Session::flash('status','success');
+        if ($student) {
+            Session::flash('status', 'success');
             Session::flash('message', 'restore student succes.');
         }
 

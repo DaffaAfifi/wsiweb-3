@@ -55,4 +55,6 @@
     <div class="my-4 ms-2 me-2">
         {{$studentList->withQueryString()->links()}}
     </div>
+
+    <x-alert message='ini student page dek!' type='success' />
 @endsection

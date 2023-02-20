@@ -20,7 +20,7 @@
 <body>
     <div class="vh-100 d-flex justify-content-center align-items-center flex-column">
         @if(Session::has('status'))
-            <div class="alert alert-danger ms-1 my-3" role="alert">
+            <div class="alert alert-success ms-1 my-3" role="alert">
                 {{Session::get('message')}}
             </div>
         @endif

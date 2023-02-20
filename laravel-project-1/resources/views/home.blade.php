@@ -39,4 +39,6 @@
     </tr>
     @endforeach
 </table>
+
+<x-alert message='Ini home page dek!' type='primary' />
 @endsection

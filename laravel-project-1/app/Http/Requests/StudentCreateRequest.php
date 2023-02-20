@@ -40,7 +40,7 @@ class StudentCreateRequest extends FormRequest
     public function messages(){
         return [
             'nim.required' => 'Field NIM wajib diisi.',
-            'nis.max' => 'NIM maksimal :max karakter',
+            'nim.max' => 'NIM maksimal :max karakter',
             'name.required' => 'Field name wajib diisi.'
         ];
     }
