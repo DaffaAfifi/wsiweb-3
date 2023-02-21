@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StudentCreateRequest;
-use App\Models\ClassRoom;
 use App\Models\Student;
+use App\Models\ClassRoom;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\StudentCreateRequest;
 
 class StudentController extends Controller
 {
@@ -27,11 +28,19 @@ class StudentController extends Controller
         return view('student', ['studentList' => $student]);
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $student = Student::with(['class.teachers', 'extracurriculars'])->findOrFail($id);
+        $student = Student::with(['class.teachers', 'extracurriculars'])->where('slug', $slug)->first();
         return view('student-detail', ['student' => $student]);
     }
+
+    // public function massUpdate(){
+    //     $student = Student::whereNull('slug')->get();
+    //     collect($student)->map(function($item){
+    //         $item->slug = Str::slug($item->name, '-');
+    //         $item->save();
+    //     });
+    // }
 
     public function create()
     {
@@ -68,6 +77,7 @@ class StudentController extends Controller
         }
 
         $request['image'] = $newName;
+        $request['slug'] = $slug = Str::slug($request->name, '-');
         $studentm->create($request->all());
         if ($studentm) {
             Session::flash('status', 'success');

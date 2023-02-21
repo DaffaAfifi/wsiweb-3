@@ -43,7 +43,7 @@
                 <td>{{$item->nim}}</td>
                 <td>{{$item->class['name']}}</td>
                 <td>
-                    <a href="student/{{$item->id}}">detail</a>
+                    <a href="student/{{$item->slug}}">detail</a>
                     <a href="students-edit/{{$item->id}}">edit</a>
                     <a href="students-delete/{{$item->id}}">delete</a>
                 </td>
