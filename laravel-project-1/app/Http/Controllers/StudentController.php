@@ -77,7 +77,7 @@ class StudentController extends Controller
         }
 
         $request['image'] = $newName;
-        $request['slug'] = $slug = Str::slug($request->name, '-');
+        // $request['slug'] = $slug = Str::slug($request->name, '-');
         $studentm->create($request->all());
         if ($studentm) {
             Session::flash('status', 'success');
